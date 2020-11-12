@@ -15,11 +15,13 @@ export default function Index(props) {
   )
 }
 
-Index.getInitialProps = async () => {
+export async function getServerSideProps() {
   const res = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
-  const data = await res.json()
+  const { bpi } = await res.json()
 
   return {
-    bpi: data.bpi,
+    props: {
+      bpi,
+    },
   }
 }
